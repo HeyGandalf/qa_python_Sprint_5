@@ -1,0 +1,11 @@
+venv/
+bin/
+lib/
+.idea/
+*.log
+*.pyc
+*.pyo
+__pycache__/
+.DS_Store
+.Python
+pyvenv.cfg
