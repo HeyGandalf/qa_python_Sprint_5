@@ -1,28 +1,36 @@
-import pytest
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from locators.locators import *
 
-@pytest.fixture
-def driver():
-    driver = webdriver.Chrome()
-    driver.implicitly_wait(5)
-    yield driver
-    driver.quit()
+class TestStellarBurgersConstructor:
 
-def test_constructor_tabs(driver):
-    """Тест переходов к разделам конструктора."""
-    driver.get("https://stellarburgers.nomoreparties.site")
-    driver.find_element(*Constructor.buns_tab).click()
-    assert WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located(Constructor.buns_heading)
-    )
-    driver.find_element(*Constructor.sauces_tab).click()
-    assert WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located(Constructor.sauces_heading)
-    )
-    driver.find_element(*Constructor.filling_tab).click()
-    assert WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located(Constructor.filling_heading)
-    )
+    def test_constructor_scroll_to_buns(self, login):
+        """Проверка перехода к разделу Булки"""
+        driver = login
+
+        driver.find_element(*ConstructorTab.constructor_tab).click()
+        driver.find_element(*ConstructorTab.filling_tab).click()
+        driver.find_element(*ConstructorTab.buns_tab).click()
+
+        buns_heading = driver.find_element(*ConstructorTab.buns_heading)
+
+        assert buns_heading.text == 'Булки'
+    def test_constructor_scroll_to_sauces(self, login):
+        """Проверка перехода к разделу Соусы"""
+        driver = login
+
+        driver.find_element(*ConstructorTab.constructor_tab).click()
+        driver.find_element(*ConstructorTab.sauces_tab).click()
+
+        sauces_heading = driver.find_element(*ConstructorTab.sauces_heading)
+
+        assert sauces_heading.text == 'Соусы'
+
+    def test_constructor_scroll_to_filling(self, login):
+        """Проверка перехода к разделу Начинки"""
+        driver = login
+
+        driver.find_element(*ConstructorTab.constructor_tab).click()
+        driver.find_element(*ConstructorTab.filling_tab).click()
+
+        filling_heading = driver.find_element(*ConstructorTab.filling_heading)
+
+        assert filling_heading.text == 'Начинки'

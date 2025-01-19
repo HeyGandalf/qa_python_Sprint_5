@@ -1,25 +1,18 @@
-import pytest
-from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators.locators import *
+from helpers.urls import Urls
 
-@pytest.fixture
-def driver():
-    driver = webdriver.Chrome()
-    driver.implicitly_wait(5)
-    yield driver
-    driver.quit()
+class TestStellarBurgersLogout:
+    def test_logout_open_login_form(self, login):
+        """"Тест выхода из аккаунта"""
+        driver = login
 
-def test_logout(driver):
-    """Тест выхода из аккаунта."""
-    driver.get("https://stellarburgers.nomoreparties.site")
-    driver.find_element(*MainPage.cabinet_button).click()
-    driver.find_element(*LoginPage.email_input).send_keys("ivan@example.com")
-    driver.find_element(*LoginPage.password_input).send_keys("123456")
-    driver.find_element(*LoginPage.login_button).click()
-    driver.find_element(*Cabinet.logout_button).click()
-    # Проверка перехода на страницу входа
-    assert WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located(LoginPage.login_heading)
-    )
+        driver.find_element(*MainPage.cabinet_button).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(Cabinet.info_message))
+
+        driver.find_element(*Cabinet.logout_button).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.login_button_universal))
+
+        login_button = driver.find_element(*LoginPage.element_with_login_text)
+        assert driver.current_url == Urls.login and login_button.text == 'Вход'
