@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from locators.locators import *
 
 @pytest.fixture
 def driver():
@@ -12,7 +13,7 @@ def driver():
 
 def test_constructor_tabs(driver):
     """Тест переходов к разделам конструктора."""
-    driver.get("https://stellar-burgers.example.com")
+    driver.get("https://stellarburgers.nomoreparties.site")
     driver.find_element(*Constructor.buns_tab).click()
     assert WebDriverWait(driver, 5).until(
         EC.presence_of_element_located(Constructor.buns_heading)

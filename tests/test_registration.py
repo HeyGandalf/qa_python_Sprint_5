@@ -2,7 +2,8 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from locators.locators import *
+from webdriver_manager.chrome import ChromeDriverManager
 @pytest.fixture
 def driver():
     driver = webdriver.Chrome()
@@ -30,5 +31,7 @@ def test_registration_with_invalid_password(driver):
     driver.find_element(*RegistrationPage.password_input).send_keys("123")
     driver.find_element(*RegistrationPage.register_button).click()
     # Проверка ошибки
-    error_message = driver.find_element(*RegistrationPage.error_message).text
+    error_message = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located(RegistrationPage.error_message)
+    ).text
     assert "Некорректный пароль" in error_message
