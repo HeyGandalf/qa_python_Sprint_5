@@ -8,29 +8,29 @@ from helpers.data import ValidData
 class TestStellarBurgersRegistration:
     def test_successful_registration_valid_email_and_password(self, driver):
         """Тест успешной регистрации"""
-        driver.get(Urls.register)
+        driver.get(Urls.REGISTER)
 
-        driver.find_element(*RegistrationPage.name_input).send_keys(ValidData.user_name)
-        driver.find_element(*RegistrationPage.email_input).send_keys(ValidData.login)
-        driver.find_element(*RegistrationPage.password_input).send_keys(ValidData.password)
+        driver.find_element(*RegistrationPage.NAME_INPUT).send_keys(ValidData.USER_NAME)
+        driver.find_element(*RegistrationPage.EMAIL_INPUT).send_keys(ValidData.LOGIN)
+        driver.find_element(*RegistrationPage.PASSWORD_INPUT).send_keys(ValidData.PASSWORD)
 
-        driver.find_element(*RegistrationPage.register_button).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.element_with_login_text))
+        driver.find_element(*RegistrationPage.REGISTER_BUTTON).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.ELEMENT_WITH_LOGIN_TEXT))
 
-        login_button = driver.find_element(*LoginPage.element_with_login_text)
-        assert driver.current_url == Urls.login and login_button.text == 'Вход'
+        login_button = driver.find_element(*LoginPage.ELEMENT_WITH_LOGIN_TEXT)
+        assert driver.current_url == Urls.LOGIN and login_button.text == 'Вход'
 
     @pytest.mark.parametrize('password', ['1', '12345'])
     def test_registration_with_invalid_password_error_message(self, driver, password):
         """Тест ошибки при вводе некорректного пароля"""
-        driver.get(Urls.register)
+        driver.get(Urls.REGISTER)
 
-        driver.find_element(*RegistrationPage.name_input).send_keys(ValidData.user_name)
-        driver.find_element(*RegistrationPage.email_input).send_keys(ValidData.login)
-        driver.find_element(*RegistrationPage.password_input).send_keys(password)
+        driver.find_element(*RegistrationPage.NAME_INPUT).send_keys(ValidData.USER_NAME)
+        driver.find_element(*RegistrationPage.EMAIL_INPUT).send_keys(ValidData.LOGIN)
+        driver.find_element(*RegistrationPage.PASSWORD_INPUT).send_keys(password)
 
-        driver.find_element(*RegistrationPage.register_button).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(RegistrationPage.error_message))
-        error_message = driver.find_element(*RegistrationPage.error_message)
+        driver.find_element(*RegistrationPage.REGISTER_BUTTON).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(RegistrationPage.ERROR_MESSAGE))
+        error_message = driver.find_element(*RegistrationPage.ERROR_MESSAGE)
 
         assert error_message.text == 'Некорректный пароль'

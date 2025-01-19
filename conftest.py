@@ -14,20 +14,20 @@ def driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
     driver.implicitly_wait(10) # Ждать 10 секунд для всех операций, если элемент не найден.
-    driver.get(Urls.main_page) # Переход на главную страницу
+    driver.get(Urls.MAIN_PAGE) # Переход на главную страницу
     yield driver
     driver.quit()
 
 @pytest.fixture
 def login(driver):
     """ Фикстура для входа в аккаунт. """
-    driver.get(Urls.login)  # Переход на страницу входа
+    driver.get(Urls.LOGIN)  # Переход на страницу входа
 
-    driver.find_element(*LoginPage.email_input).send_keys(PersonalData.login)
-    driver.find_element(*LoginPage.password_input).send_keys(PersonalData.password)
-    driver.find_element(*LoginPage.login_button_universal).click()
+    driver.find_element(*LoginPage.EMAIL_INPUT).send_keys(PersonalData.LOGIN)
+    driver.find_element(*LoginPage.PASSWORD_INPUT).send_keys(PersonalData.PASSWORD)
+    driver.find_element(*LoginPage.LOGIN_BUTTON_UNIVERSAL).click()
 
     # Явное ожидание появления кнопки на главной странице после авторизации
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located(MainPage.order_button))
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located(MainPage.ORDER_BUTTON))
 
     return driver

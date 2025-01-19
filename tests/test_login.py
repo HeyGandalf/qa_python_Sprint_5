@@ -9,67 +9,65 @@ class TestStellarBurgersLogin:
         """ Тест ввода валидных данных при входе"""
         driver = login
 
-        order_button = driver.find_element(*MainPage.order_button)
-        assert driver.current_url == Urls.main_page and order_button.text == 'Оформить заказ'
+        order_button = driver.find_element(*MainPage.ORDER_BUTTON)
+        assert driver.current_url == Urls.MAIN_PAGE and order_button.text == 'Оформить заказ'
 
     def test_login_from_main_page_show_login_page(self, driver):
         """Тест входа через кноку 'Войти в аккаунт' на главной странице"""
-        driver.find_element(*MainPage.enter_cabinet_button).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.login_heading))
+        driver.find_element(*MainPage.ENTER_CABINET_BUTTON).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.LOGIN_HEADING))
 
-        driver.find_element(*LoginPage.email_input).send_keys(PersonalData.login)
-        driver.find_element(*LoginPage.password_input).send_keys(PersonalData.password)
+        driver.find_element(*LoginPage.EMAIL_INPUT).send_keys(PersonalData.LOGIN)
+        driver.find_element(*LoginPage.PASSWORD_INPUT).send_keys(PersonalData.PASSWORD)
 
-        driver.find_element(*LoginPage.login_button_universal).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.order_button))
+        driver.find_element(*LoginPage.LOGIN_BUTTON_UNIVERSAL).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.ORDER_BUTTON))
 
-        order_button = driver.find_element(*MainPage.order_button)
-        assert driver.current_url == Urls.main_page and order_button.text == 'Оформить заказ'
+        order_button = driver.find_element(*MainPage.ORDER_BUTTON)
+        assert driver.current_url == Urls.MAIN_PAGE and order_button.text == 'Оформить заказ'
 
     def test_login_from_cabinet_button_show_login_page(self, driver):
         """Тест входа через кнопку кнопку Личный кабинет"""
-        driver.find_element(*MainPage.cabinet_button).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.login_heading))
+        driver.find_element(*MainPage.CABINET_BUTTON).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.LOGIN_HEADING))
 
-        driver.find_element(*LoginPage.email_input).send_keys(PersonalData.login)
-        driver.find_element(*LoginPage.password_input).send_keys(PersonalData.password)
+        driver.find_element(*LoginPage.EMAIL_INPUT).send_keys(PersonalData.LOGIN)
+        driver.find_element(*LoginPage.PASSWORD_INPUT).send_keys(PersonalData.PASSWORD)
 
-        driver.find_element(*LoginPage.login_button_universal).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.order_button))
+        driver.find_element(*LoginPage.LOGIN_BUTTON_UNIVERSAL).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.ORDER_BUTTON))
 
-        order_button = driver.find_element(*MainPage.order_button)
-        assert driver.current_url == Urls.main_page and order_button.text == 'Оформить заказ'
+        order_button = driver.find_element(*MainPage.ORDER_BUTTON)
+        assert driver.current_url == Urls.MAIN_PAGE and order_button.text == 'Оформить заказ'
 
     def test_login_from_registration_form(self, driver):
         """Тест входа через кнопку 'Войти' в форме регистрации"""
-        driver.get(Urls.register)
+        driver.get(Urls.REGISTER)
 
-        driver.find_element(*LoginPage.login_text_href).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.login_heading))
+        driver.find_element(*LoginPage.LOGIN_TEXT_HREF).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.LOGIN_HEADING))
 
-        driver.find_element(*LoginPage.email_input).send_keys(PersonalData.login)
-        driver.find_element(*LoginPage.password_input).send_keys(PersonalData.password)
+        driver.find_element(*LoginPage.EMAIL_INPUT).send_keys(PersonalData.LOGIN)
+        driver.find_element(*LoginPage.PASSWORD_INPUT).send_keys(PersonalData.PASSWORD)
 
-        driver.find_element(*LoginPage.login_button_universal).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.order_button))
+        driver.find_element(*LoginPage.LOGIN_BUTTON_UNIVERSAL).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.ORDER_BUTTON))
 
-        order_button = driver.find_element(*MainPage.order_button)
-        assert driver.current_url == Urls.main_page and order_button.text == 'Оформить заказ'
-
-
+        order_button = driver.find_element(*MainPage.ORDER_BUTTON)
+        assert driver.current_url == Urls.MAIN_PAGE and order_button.text == 'Оформить заказ'
 
     def test_login_from_restore_password(self, driver):
         """Тест входа через кнопку 'Войти' в форме восстановления пароля"""
-        driver.get(Urls.forgot_password)
+        driver.get(Urls.FORGOT_PASSWORD)
 
-        driver.find_element(*RestorePasswordPage.login_text_href).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.login_heading))
+        driver.find_element(*RestorePasswordPage.LOGIN_TEXT_HREF).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(LoginPage.LOGIN_HEADING))
 
-        driver.find_element(*LoginPage.email_input).send_keys(PersonalData.login)
-        driver.find_element(*LoginPage.password_input).send_keys(PersonalData.password)
+        driver.find_element(*LoginPage.EMAIL_INPUT).send_keys(PersonalData.LOGIN)
+        driver.find_element(*LoginPage.PASSWORD_INPUT).send_keys(PersonalData.PASSWORD)
 
-        driver.find_element(*LoginPage.login_button_universal).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.order_button))
+        driver.find_element(*LoginPage.LOGIN_BUTTON_UNIVERSAL).click()
+        WebDriverWait(driver, 8).until(EC.presence_of_element_located(MainPage.ORDER_BUTTON))
 
-        order_button = driver.find_element(*MainPage.order_button)
-        assert driver.current_url == Urls.main_page and order_button.text == 'Оформить заказ'
+        order_button = driver.find_element(*MainPage.ORDER_BUTTON)
+        assert driver.current_url == Urls.MAIN_PAGE and order_button.text == 'Оформить заказ'
